@@ -8,8 +8,6 @@ const { Provider } = contexto;
 
 const MiCustomProvider = ({ children }) => {
   const [carrito, setCarrito] = useState([]);
-  const [cantidad_total, setCantidad_total] = useState(0);
-  const [precio_total, setPrecio_total] = useState(0);
 
   const estaEnCarrito = (id) => {
     return carrito && carrito.some((item) => item.id === id);
@@ -21,8 +19,7 @@ const MiCustomProvider = ({ children }) => {
     let cartAux = [];
 
     if (estaEnCarrito(id)) {
-      cartProduct = carrito.find((item) => item.id === +id);
-
+      cartProduct = carrito.find((item) => item.id === id);
       cartProduct.contador = cartProduct.contador + contador;
 
       cartAux = [...cartProduct];
@@ -35,16 +32,25 @@ const MiCustomProvider = ({ children }) => {
 
   const eliminarProducto = (id) => {
     setCarrito(carrito.filter((carri) => carri.id !== id));
-    console.log("eliminado");
   };
 
   const vaciarCarrito = () => {
     setCarrito([]);
   };
 
+  const iconocarrito = () => {
+    return carrito.reduce((acum, i) => acum + i.contador, 0);
+  };
+  const preciototal = () => {
+    return carrito.reduce(
+      (acum, i) => acum + i.contador * i.producto.precio,
+      0
+    );
+  };
+
   const valorDelContexto = {
-    cantidad_total: cantidad_total,
-    precio_total: precio_total,
+    preciototal,
+    iconocarrito,
     carrito: carrito,
     agregarProducto,
     eliminarProducto,

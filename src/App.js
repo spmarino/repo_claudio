@@ -11,6 +11,7 @@ const App = () => {
     <MiCustomProvider>
       <Header/>
       <Main/>
+      <Footer/>
       </MiCustomProvider> 
     </BrowserRouter>
     
@@ -20,7 +21,3 @@ const App = () => {
 export default App
 
 
-
-/* export default app = () => {
-  return "Hola Mundo"
-} */
